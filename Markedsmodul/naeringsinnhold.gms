@@ -1,0 +1,106 @@
+************************************************************************
+*
+*   Jordmod og klima: Del av C-scape 20010-2014
+*
+*   Ansvarlig: Klaus, NILF
+*   Formaal: Parametre for naeringsinnhold i matvarer
+*   Kommentarer: Basert paa Paal, 4 mar 11, KMi
+*   Status:
+************************************************************************
+*
+TABLE NAERING(VARE,NSTOFF) Naeringsinnhold i matvarer
+* ENER: kcal pr kg
+* PROT: g pr kg
+* FETT: g pr kg
+           ENER            PROT          FETT
+HVEM        2920.000        88.668        15.668
+BYGM        2288.983        37.119        0.000
+RUGM        2683.824        69.779        10.735
+HAVM        1921.053        76.842        38.421
+POTE        672.110         16.190        0.981
+RAPM        3650.000        243.333       243.333
+ERTM        3361.842        211.316       19.211
+GRNV        205.313         9.125         2.281
+GRNF        275.698         12.586        2.397
+EPLE        348.351         4.098         1.793
+AFRU        441.532         5.887         4.415
+* Oppdatert fra matvareguiden
+*STFK        1032.683        129.976       51.634
+*SVNK        3602.597        96.385        353.939
+*MLKD        470.407         32.672        14.830
+*MLKI        470.407         32.672       14.830
+STFK        1696.9          129.976       51.634
+SVNK        2048.2           96.385       353.939
+SAUK        2346.429        123.839       202.054
+FJRK        1249.329        149.430       68.591
+EGGS        1432.710        115.981       98.925
+MLKD        703.5           32.672        14.830
+MLKI        703.5           32.672        14.830
+MLKS        613.120         32.656        14.328
+YOGH        1024.326        38.196        34.284
+OSTD        3510.000        270.000       270.000
+OSTI        3510.000        270.000       270.000
+OSTK        2880.000        60.000        280.000
+OSTM        3842.335        215.075       271.772
+OSTG        4430.000        120.000       270.000
+OSTE        3510.000        270.000       270.000
+OSTX        3510.000        270.000       270.000
+SKMP        3096.900        309.690       820.000
+FLOT        3203.673        22.571        332.171
+SMOR        7453.904        10.000        819.323
+;
+
+* Deriverte produkter
+NAERING('AKRM',NSTOFF) = NAERING('RUGM',NSTOFF);
+NAERING('KMLK',NSTOFF) = NAERING('MLKD',NSTOFF);
+NAERING('GMLK',NSTOFF) = NAERING('MLKI',NSTOFF);
+NAERING('KLVK',NSTOFF) = NAERING('STFK',NSTOFF);
+NAERING('GETK',NSTOFF) = NAERING('SAUK',NSTOFF);
+NAERING('STKK',NSTOFF) = NAERING('STFK',NSTOFF);
+NAERING('SAGK',NSTOFF) = NAERING('SAUK',NSTOFF);
+NAERING('PRIN',NSTOFF) = .5 * NAERING('STFK',NSTOFF) + .5 * NAERING('SVNK',NSTOFF);
+NAERING('KYST',NSTOFF) = NAERING('STFK',NSTOFF);
+NAERING('KYSA',NSTOFF) = NAERING('SAUK',NSTOFF);
+NAERING('KYSV',NSTOFF) = NAERING('SVNK',NSTOFF);
+NAERING('KBST',NSTOFF) = NAERING('STFK',NSTOFF);
+NAERING('KBSA',NSTOFF) = NAERING('SAUK',NSTOFF);
+NAERING('KBSV',NSTOFF) = NAERING('SVNK',NSTOFF);
+NAERING('KSST',NSTOFF) = NAERING('STFK',NSTOFF);
+NAERING('KSSA',NSTOFF) = NAERING('SAUK',NSTOFF);
+NAERING('KSSV',NSTOFF) = NAERING('SVNK',NSTOFF);
+NAERING('KDEI',NSTOFF) = (.5 * NAERING('STFK',NSTOFF) + .5 * NAERING('SVNK',NSTOFF)) * 0.92500;
+NAERING('KPOL',NSTOFF) = (.5 * NAERING('STFK',NSTOFF) + .5 * NAERING('SVNK',NSTOFF)) * 0.50000;
+NAERING('KPAL',NSTOFF) = (.5 * NAERING('STFK',NSTOFF) + .5 * NAERING('SVNK',NSTOFF)) * 0.50000;
+NAERING('KSPP',NSTOFF) = NAERING('STFK',NSTOFF) * 1.250000;
+NAERING('KSPV',NSTOFF) = NAERING('SAUK',NSTOFF) * 2.00000;
+NAERING('KDIV',NSTOFF) = (.5 * NAERING('STFK',NSTOFF) + .5 * NAERING('SVNK',NSTOFF)) * 0.35000;
+NAERING('KHEL',NSTOFF) = NAERING('FJRK',NSTOFF);
+NAERING('KFIL',NSTOFF) = NAERING('FJRK',NSTOFF);
+NAERING('KANT',NSTOFF) = NAERING('FJRK',NSTOFF);
+NAERING('FMKN',NSTOFF) = NAERING('HVEM',NSTOFF);
+NAERING('FFKN',NSTOFF) = NAERING('BYGM',NSTOFF);
+
+* Naeringsinnhold soya i kraftfor
+* jf kalibrering.xls
+* 10 prosent av kraftforet er soya
+NAERING(MOELUTKVARE,'ENER') = SUM(MOEL$VARE_TIL_MOEL(MOELUTKVARE,MOEL), MOLDATA('FSOY',MOEL)) ;
+* Verdi fra fortabell
+NAERING(MOELUTKVARE,'FFEM') = 1.46 /0.896 * SUM(MOEL$VARE_TIL_MOEL(MOELUTKVARE,MOEL), MOLDATA('FSOY',MOEL)) ;
+NAERING(MOELUTKVARE,'PROT') = 582.712     * SUM(MOEL$VARE_TIL_MOEL(MOELUTKVARE,MOEL), MOLDATA('FSOY',MOEL)) ;
+*
+NAERING('HVEM','FFEM') = 1.032;
+NAERING('RUGM','FFEM') = 1.012;
+NAERING('BYGM','FFEM') = 0.984;
+NAERING('FFKN','FFEM') = 0.984;
+NAERING('HAVM','FFEM') = 0.830;
+NAERING('AKRM','FFEM') = 1.012;
+NAERING('RAPM','FFEM') = 1.754;
+NAERING('ERTM','FFEM') = 1.053;
+NAERING('POTE','FFEM') = 0.255;
+NAERING('GFFS','FFEM') = 1;
+NAERING('GFFB','FFEM') = 1;
+NAERING('GFOS','FFEM') = 1;
+NAERING('GFOB','FFEM') = 1;
+NAERING('GFIB','FFEM') = 1;
+NAERING('GFUB','FFEM') = 1;
+
