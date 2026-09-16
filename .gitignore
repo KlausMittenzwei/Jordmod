@@ -1,1 +1,37 @@
+#Exclude all Files
+/*
 
+#Except the following 
+
+Directories and included files...
+!/Tilbudsmodul/
+!/Tilbudsmodul/**
+
+!/Scenarier/
+!/Scenarier/**
+
+!/Markedsmodul/
+!/Markedsmodul/**
+
+!/Raadata/
+!/Raadata/**
+
+#Important single files
+!/jordmod.gms
+
+!/vekstrater.gms
+!/parameter.gms
+!/sets.gms
+!/resultater.gms
+!/mergeresultater.gms
+!/konvergens.gms
+!/iobas.gdx
+!/elas.gdx
+
+#Files to run gams in vsCode
+!/.vscode/**
+!/.vscode/
+
+#Git files
+!/README.md
+!/.gitignore

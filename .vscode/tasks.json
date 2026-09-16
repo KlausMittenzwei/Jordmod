@@ -4,7 +4,7 @@
         {
             "label": "GAMS: Run current file",
             "type": "shell",
-            "command": "C:\\GAMS\\50\\gams.exe",
+            "command": "gams",
             "args": [
                 "\"${file}\"",
                 "curDir=\"${fileDirname}\"",
@@ -27,7 +27,7 @@
         {
             "label": "GAMS: Run jordmod.gms",
             "type": "shell",
-            "command": "C:\\GAMS\\50\\gams.exe",
+            "command": "gams",
             "args": [
                 "jordmod.gms",
                 "lo=3"
